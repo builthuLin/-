@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace命名空间，对sql进行分类化管理，可理解为sql隔离 
      注意：使用mapper代理方法开发，namespace有特殊重要的作用
 -->
-<mapper namespace="test">
+<mapper namespace="com.test.dao.UserMapper">
    <!-- id:标识映射文件中的sql
    将sql语句封装到mappedstatement对象中，所以将id称为statement的id
   parameterType指定输入参数的类型

@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 需求：通过id查询用户信息,#{}表示一个占位符?,id表示接收的参数
     如果输入参数是简单类型，#{}中的参数名可以任意
     -->
-   <select id="fingUserById" parameterType="int" resultType="com.test.pojo.User">
+   <select id="findUserById" parameterType="int" resultType="com.test.pojo.User">
        select * from user where id = #{id}
    </select>
 
@@ -45,4 +45,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </selectKey>
     insert into user(id,username,password,notes) value(#{id},#{username},#{password},#{notes})    -->
    </insert>
+   
+   <delete id="deleteUser" parameterType="int">
+       delete from user where id = #{id}
+   </delete>
+   
+   <update id="updateUser" parameterType="com.test.pojo.User">
+       update user set username=#{username},password=#{password},notes=#{notes} where id = #{id}
+   </update>
 </mapper>

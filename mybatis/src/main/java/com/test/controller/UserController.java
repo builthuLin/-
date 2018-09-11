@@ -15,84 +15,149 @@ import com.test.pojo.User;
 public class UserController {
 
 	/*
-	 * ¸ù¾İid²éÑ¯ÓÃ»§ĞÅÏ¢
+	 * æ ¹æ®ç”¨æˆ·idæŸ¥è¯¢è®°å½•
 	 */
 	@Test
 	public void findUserById() throws IOException {
-		//mybatisÅäÖÃÎÄ¼ş
+		//mybatisé…ç½®æ–‡ä»¶
 		String resource = "SqlMapConfig.xml";
 		
-		//µÃµ½ÅäÖÃÎÄ¼şÁ÷
+		//å¾—åˆ°é…ç½®æ–‡ä»¶æµ
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		
-		//´´½¨»á»°¹¤³§,´«ÈëmybatisÅäÖÃÎÄ¼şĞÅÏ¢
+		//åˆ›å»ºä¼šè¯å·¥å‚ï¼Œä¼ å…¥mybatisçš„é…ç½®æ–‡ä»¶ä¿¡æ¯
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
-		//Í¨¹ı¹¤³§µÃµ½sqlsession
+		//é€šè¿‡å·¥å‚å¾—åˆ°Sqlsession
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
-		//Í¨¹ısqlsession²Ù×÷Êı¾İ¿â
-		//µÚÒ»¸ö²ÎÊı£ºnamespace + "." + statementid
-		//µÚ¶ş¸ö²ÎÊı£ºÖ¸¶¨ºÍÓ³ÉäÎÄ¼şÖĞÆ¥ÅäµÄparamterTypeÀàĞÍµÄ²ÎÊı
-		//½á¹ûÊÇÖ¸¶¨ºÍÓ³ÉäÎÄ¼şÖĞÆ¥ÅäµÄresultTypeÀàĞÍµÄ¶ÔÏó
-		User user = sqlSession.selectOne("test.fingUserById", 1); 
+		//é€šè¿‡sqlsessionæ“ä½œæ•°æ®åº“
+		//ç¬¬ä¸€ä¸ªå‚æ•°ï¼šæ˜ å°„æ–‡ä»¶ä¸­statementçš„id,ç­‰äºnamespace + "." + statementid
+		//ç¬¬äºŒä¸ªå‚æ•°ï¼šæŒ‡å®šå’Œæ˜ å°„æ–‡ä»¶ä¸­æ‰€åŒ¹é…parameterTypeç±»å‹çš„å‚æ•°
+		User user = sqlSession.selectOne("test.findUserById", 1); 
 		System.out.println(user);
 		
-		//ÊÍ·Å×ÊÔ´
+		//é‡Šæ”¾ä¼šè¯
 		sqlSession.close();
 	}
 	
 	/**
-	 * ¸ù¾İÓÃ»§Ãû³ÆÄ£ºı²éÑ¯ÓÃ»§ÁĞ±í
+	 * æ ¹æ®ç”¨æˆ·åæ¨¡ç³ŠæŸ¥è¯¢
 	 * @throws IOException 
 	 */
 	@Test
 	public void findUserByName() throws IOException {
-		//mybatisÅäÖÃÎÄ¼ş
+		//mybatisé…ç½®æ–‡ä»¶
 		String resource = "SqlMapConfig.xml";
 		
-		//µÃµ½ÅäÖÃÎÄ¼şÁ÷
+		//å¾—åˆ°é…ç½®æ–‡ä»¶æµ
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		
-		//´´½¨»á»°¹¤³§,´«ÈëmybatisÅäÖÃÎÄ¼şĞÅÏ¢
+		//åˆ›å»ºä¼šè¯å·¥å‚ï¼Œä¼ å…¥mybatisçš„é…ç½®æ–‡ä»¶ä¿¡æ¯
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
-		//Í¨¹ı¹¤³§µÃµ½sqlsession
+		//é€šè¿‡å·¥å‚å¾—åˆ°Sqlsession
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 	    
-		java.util.List<User> list = sqlSession.selectList("test.findUserByName", "Ğ¡Ã÷");
+		java.util.List<User> list = sqlSession.selectList("test.findUserByName", "æ—æ«");
 		System.out.println(list);
 		sqlSession.close();
 	}
 	
 	/**
-	 * ĞÂÔöÓÃ»§
+	 * æ–°æ·»ç”¨æˆ·
 	 * @throws IOException 
 	 */
 	@Test
 	public void insertUser() throws IOException {
-		//mybatisÅäÖÃÎÄ¼ş
+		//mybatisé…ç½®æ–‡ä»¶
 		String resource = "SqlMapConfig.xml";
 		
-		//µÃµ½ÅäÖÃÎÄ¼şÁ÷
+		//å¾—åˆ°é…ç½®æ–‡ä»¶æµ
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		
-		//´´½¨»á»°¹¤³§,´«ÈëmybatisÅäÖÃÎÄ¼şĞÅÏ¢
+		//åˆ›å»ºä¼šè¯å·¥å‚ï¼Œä¼ å…¥mybatisçš„é…ç½®æ–‡ä»¶ä¿¡æ¯
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
-		//Í¨¹ı¹¤³§µÃµ½sqlsession
+		//é€šè¿‡å·¥å‚å¾—åˆ°Sqlsession
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		User user = new User();
-		user.setUsername("ÍõĞ¡¾ü");
+		user.setUsername("é»„å°æ˜");
 		user.setPassword("123456");
 		user.setNotes("");
-		//Ìá½»userºÍÓ³ÉäÎÄ¼şÖĞµÄresultTypeËùÖ¸µÄÀàĞÍÒ»ÖÂ
+		//userå’Œæ˜ å°„æ–‡ä»¶ä¸­resultTypeæ‰€æŒ‡å®šçš„ç±»å‹ä¸€è‡´
 		int ret = sqlSession.insert("test.insertUser", user);
 		
-		//Ìá½»ÊÂÎï
+		//æäº¤äº‹åŠ¡
 		sqlSession.commit();
-		System.out.println("===================================="+ret+user.getId());
+		System.out.println("===================================="+ret+"è‡ªå¢id:"+user.getId());
 		sqlSession.close();
 	}
+	
+	/**
+	 * åˆ é™¤ç”¨æˆ·
+	 * @throws IOException 
+	 */
+	@Test
+	public void deleteUser() throws IOException {
+		//mybatisé…ç½®æ–‡ä»¶
+		String resource = "SqlMapConfig.xml";
+		
+		//å¾—åˆ°é…ç½®æ–‡ä»¶æµ
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		
+		//åˆ›å»ºä¼šè¯å·¥å‚ï¼Œä¼ å…¥mybatisçš„é…ç½®æ–‡ä»¶ä¿¡æ¯
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		
+		//é€šè¿‡å·¥å‚å¾—åˆ°Sqlsession
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		int ret = sqlSession.delete("test.deleteUser", 1);
+		
+		sqlSession.commit();
+		if(ret > 0) {
+			System.out.println("====================================åˆ é™¤æˆåŠŸ");
+		}else {
+			System.out.println("====================================åˆ é™¤å¤±è´¥");
+		}
+		sqlSession.close();
+	}
+	
+	/**
+	 * æ›´æ–°ç”¨æˆ·
+	 * @throws IOException 
+	 */
+	@Test
+	public void updateUser() throws IOException {
+		//mybatisé…ç½®æ–‡ä»¶
+		String resource = "SqlMapConfig.xml";
+		
+		//å¾—åˆ°é…ç½®æ–‡ä»¶æµ
+		InputStream inputStream = Resources.getResourceAsStream(resource);
+		
+		//åˆ›å»ºä¼šè¯å·¥å‚ï¼Œä¼ å…¥mybatisçš„é…ç½®æ–‡ä»¶ä¿¡æ¯
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		
+		//é€šè¿‡å·¥å‚å¾—åˆ°Sqlsession
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		//å¿…é¡»è®¾ç½®id
+		User user = new User();
+		user.setUsername("ç‹å¤§é”¤");
+		user.setPassword("root");
+		user.setNotes("");
+		user.setId(4);
+		
+		int ret = sqlSession.update("test.updateUser", user);
+		
+		sqlSession.commit();
+		if(ret > 0) {   
+			System.out.println("======================æ›´æ–°æˆåŠŸ");
+		}else {
+			System.out.println("======================æ›´æ–°å¤±è´¥");
+		}
+		sqlSession.close();
+	}
+	
+
 }

@@ -1,2 +1,9 @@
 eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/java/com/test/controller/UserController.java=UTF-8
+encoding//src/main/java/com/test/mapper/UserDao.java=UTF-8
+encoding//src/main/java/com/test/mapper/UserDaoImpl.java=UTF-8
 encoding//src/main/resources/log4j.properties=UTF-8
+encoding//src/test/java=UTF-8
+encoding//src/test/java/com/test/mapper/UserDaoImplTest.java=UTF-8
+encoding/<project>=UTF-8
