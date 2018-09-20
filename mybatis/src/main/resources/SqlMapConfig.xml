@@ -12,17 +12,21 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
        properties文件中定义的属性名要有一定的特殊性，例如jdbc.username
        -->
     </properties>
-    <!-- <settings>
-    
-    </settings> -->
+    <!-- 全局配置参数，需要时再设置 -->
+    <settings>
+    <!-- 打开延迟加载的开关 -->
+     <setting name="lazyLoadingEnabled" value="true"/>
+    <!-- 将积极加载改为消极加载即按需要加载 -->
+     <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
     <!-- 别名定义
     parameterType 、 resultType
      -->
     <typeAliases>
-    <!-- 针对单个别名定义 type:类型的路径、alias:别名 -->
+    <!-- 1、针对单个别名定义 type:类型的路径、alias:别名 -->
        <typeAlias type="com.test.pojo.User" alias="user"/>
-    <!-- 批量别名 ,指定包名，mybatis自动扫描pojo类，自动定义别名，别名就是类名(首字母大小写不区别) 常用-->
-    <package name="com.test.pojo"/>
+    <!--/2、批量别名 ,指定包名，mybatis自动扫描pojo类，自动定义别名，别名就是类名(首字母大小写不区别) 常用-->
+       <package name="com.test.pojo"/>
     </typeAliases>
 	<!-- 和spring整合后 environments配置将废除-->
 	<environments default="development">
@@ -41,9 +45,25 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 	<!-- 加载映射文件 -->
 	<mappers>
+	    <!-- 1种加载方式 ，加载单个mapper-->
 	    <!-- 原生dao -->
 	    <mapper resource="com/test/mapper/UserMapper.xml"/>
 	    <!-- mapper代理 -->
-	    <mapper resource="com/test/dao/UserMapper.xml"/>
+	   <!--  <mapper resource="com/test/dao/UserMapper.xml"/> -->
+	    
+	    <!-- <mapper resource="com/test/dao/OrdersMapper.xml"/> -->
+	    <!-- 2种加载方式 -->
+	    <!-- 通过mapper接口加载映射文件
+	    遵循一些规范：需要将mapper接口类名和mapper.xml映射文件名称保持一致，且在同一个目录中
+	    上边规范前提是：使用的是mapper代理方法
+	     -->
+	   <!--  <mapper class="com.test.dao.UserMapper"/> -->
+	   
+	   <!-- 3种加载方式,批量加载 -->
+	   <!-- 批量加载mapper,指定mapper接口的包名，mybatis自动扫描包下所有mapper接口进行加载
+	    遵循一些规范：需要将mapper接口类名和mapper.xml映射文件名称保持一致，且在同一个目录中
+	    上边规范前提是：使用的是mapper代理方法
+	    -->
+	    <package name="com.test.dao"/>
 	</mappers>
 </configuration>

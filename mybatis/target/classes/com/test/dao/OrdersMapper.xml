@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.dao.OrdersMapper">
+
+     <!-- 查询订单关联用户 ,使用 resultType-->
+     <select id="findOrdersUser" resultType="com.test.pojo.OrdersCustom">
+         SELECT 
+           orders.*,user.username,user.password
+         FROM 
+           orders,user 
+         WHERE 
+           orders.user_id = user.id
+     </select>
+     
+     <!-- 定义 resultMap-->
+     <!-- 
+     type:resultMap最终映射的java对象类型,可使用别名
+     id:对resultMap的唯一标识
+      -->
+     <resultMap type="com.test.pojo.Orders" id="OrdersUserResultMap">
+          <!-- 配置映射的订单信息 -->
+          <!-- id表示查询结果集中唯一标识
+          column:查询出来的列名
+          property:type指定的pojo类型中的属性名
+                              最终resultMap对column和property做一个映射关系（对应关系）
+          -->
+         <id column="id" property="id"/>
+         <result column="user_id" property="userid"/>
+         <result column="number" property="number"/>
+         <result column="createtime" property="createtime"/>
+         <result column="notes" property="notes"/>
+         
+         <!-- 配置映射的关联用户信息 -->
+         <!-- 
+         association:用于映射关系查询单个对象的哪个属性
+         property:对应orders里的user对象
+         javaType：映射到用户User
+         column:对应查询语句的列
+          -->
+         <association property="user" javaType="com.test.pojo.User">
+         <id column="user_id" property="id"/>
+         <result column="username" property="username"/>
+         <result column="password" property="password"/>
+         </association>
+     </resultMap>
+     
+    
+     
+     <!-- 查询订单关联用户,使用resultMap -->
+     <select id="findOrdersUserResultMap" resultMap="OrdersUserResultMap">
+         SELECT 
+           orders.*,user.username,user.password
+         FROM 
+           orders,user 
+         WHERE 
+           orders.user_id = user.id
+     </select>
+     
+      <!-- 查询订单相关联的用户信息以及订单明细信息resultMap -->
+     <resultMap type="com.test.pojo.Orders" id="OrdersAndDetailResultMap" extends="OrdersUserResultMap">
+     <!-- 订单信息 -->
+     <!-- 用户信息 -->
+     <!-- 用extends继承 -->
+     <!-- 订单明细 -->
+     <!-- 
+               一个订单关联查询出了多条明细，要用collection进行映射
+     collection:对关联查询到多条记录映射到集合对象中
+     property:将关联查询到多条记录映射到com.test.pojo.Orderdetail的哪个属性
+     ofType:指定映射到集合属性的pojo的类型
+      -->
+      <collection property="orderdetails" ofType="com.test.pojo.Orderdetail">
+      <id column="orderdetail_id" property="id"/>
+      <result column="items_id" property="itemsid"/>
+      <result column="items_num" property="itemsnum"/>
+      <result column="orders_id" property="ordersid"/>
+      </collection>
+     </resultMap>
+     
+     <!-- (一对多高级映射)查询订单相关联的用户信息以及订单明细信息 ,使用resultMap,若使用reultType需要自行循环遍历去除重复记录-->
+     <select id="findOrdersAndDetailResultMap" resultMap="OrdersAndDetailResultMap">
+         SELECT 
+			orders.*,
+			user.username,
+			user.password,
+			orderdetail.id orderdetail_id,
+			orderdetail.items_id,
+			orderdetail.items_num,
+			orderdetail.orders_id
+		FROM 
+			orders,user,orderdetail
+		WHERE 
+			orders.user_id = user.id AND orderdetail.orders_id=orders.id
+     </select>
+     
+     <!-- type为主查询对象 -->
+     <resultMap type="com.test.pojo.User" id="UserAndItemsResultMap">
+        <!-- 用户信息 -->
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        
+        <!-- 订单信息,一个用户多个订单 -->
+        <collection property="ordersList" ofType="com.test.pojo.Orders">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userid"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="notes" property="notes"/>
+        
+         <!-- 订单明细，一个订单多个订单明细 -->
+         <collection property="orderdetails" ofType="com.test.pojo.Orderdetail">
+         <id column="orderdetail_id" property="id"/>
+         <result column="items_id" property="itemsid"/>
+         <result column="items_num" property="itemsnum"/>
+         <result column="orders_id" property="ordersid"/>   
+         
+          <!-- 商品信息,一个订单明细对应一个商品-->
+         <association property="items" javaType="com.test.pojo.Items">
+         <id column="items_id" property="id"/>
+         <result column="items_name" property="name"/>
+         <result column="items_detail" property="detail"/>
+         <result column="items_price" property="price"/>
+         </association>
+          
+         </collection>
+        
+        </collection>   
+     </resultMap>
+     
+     <!-- (多对多高级查询)查询用户及购买商品的信息 -->
+     <select id="findUserAndItemsResultMap" resultMap="UserAndItemsResultMap">
+         SELECT 
+			orders.*,
+			user.username,
+			user.password,
+			orderdetail.id orderdetail_id,
+			orderdetail.items_id,
+			orderdetail.items_num,
+			orderdetail.orders_id,
+			items.name items_name,
+			items.detail items_detail,
+			items.price items_price
+		FROM 
+			orders,user,orderdetail,items
+		WHERE 
+			orders.user_id = user.id AND orderdetail.orders_id=orders.id AND orderdetail.items_id = items.id
+     </select>
+     
+     <!-- 根据订单信息查询用户信息，延迟加载，通过子查询 ，resultMap才有延迟加载-->
+     <resultMap type="com.test.pojo.Orders" id="OrdersUserLazyLoadingResultMap">
+     <!-- 对订单的映射 -->
+     <id column="id" property="id"/>
+     <result column="user_id" property="userid"/>
+     <result column="number" property="number"/>
+     <result column="createtime" property="createtime"/>
+     <result column="notes" property="notes"/>
+     
+     <!-- 实现对用户信息进行延迟加载 -->
+     <!-- select:置顶延迟加载需要执行sql语句，statement的id,column:相关联的列 -->
+     <!-- 使用userMapper.xml中的findUserById完成对用户的查询 -->
+     <!-- 关联查询语句
+     select orders.*,
+     (select username from user where orders.user_id=user.id)username,
+     (select password from user where orders.user_id=user.id)password
+     from orders
+      -->
+     <association property="user" javaType="com.test.pojo.User" select="com.test.dao.UserMapper.findUserById" column="user_id">
+    
+     </association>
+     
+     </resultMap>
+     <!-- 先查询订单信息，在查询订单信息的statement中使用association去延迟加载执行下边的statement -->
+     <select id="findOrdersUserLazyLoading" resultMap="OrdersUserLazyLoadingResultMap">
+         select * from orders
+     </select>
+
+</mapper>

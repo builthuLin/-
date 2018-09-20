@@ -1,11 +1,22 @@
 package com.test.pojo;
 
+import java.util.List;
+
 public class User {
 	
 	public int id;
 	public String username;
 	public String password;
 	public String notes;
+	
+	private List<Orders> ordersList;
+	
+	public List<Orders> getOrdersList() {
+		return ordersList;
+	}
+	public void setOrdersList(List<Orders> ordersList) {
+		this.ordersList = ordersList;
+	}
 	public int getId() {
 		return id;
 	}
@@ -32,8 +43,10 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", notes=" + notes + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", notes=" + notes
+				+ ", ordersList=" + ordersList + "]";
 	}
+	
 	
 
 }
