@@ -7,9 +7,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 import com.test.pojo.User;
 
 public class UserController {

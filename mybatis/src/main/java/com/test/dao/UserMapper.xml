@@ -7,6 +7,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      注意：使用mapper代理方法开发，namespace有特殊重要的作用
 -->
 <mapper namespace="com.test.dao.UserMapper">
+
+   <!-- 开启本mapper的namespace下的二级缓存 -->
+   <!-- 
+   type:指定cache接口实现类的类型，mybatis默认使用PerpetualCache
+         要和ehcache整合，需要配置type为ehcache实现cache接口的类型
+    -->
+   <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
    <!-- 定义sql片段
         id:sql片段的唯一标识，基于单表,在sql片段中不要包含where
     -->
@@ -28,7 +35,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <!-- 需求：通过id查询用户信息,#{}表示一个占位符?,id表示接收的参数
     如果输入参数是简单类型，#{}中的参数名可以任意
     -->
-   <select id="findUserById" parameterType="int" resultType="com.test.pojo.User">
+    <!-- useCache设置二级缓存是否禁用，默认为true不禁用，false为禁用 -->
+    <!-- flushCache刷新缓存，true为刷新缓存，执行commit()操作需要 -->
+    <!-- flushInterval刷新时间间隔 -->
+   <select id="findUserById" parameterType="int" resultType="com.test.pojo.User" useCache="true" flushCache="true">
        select * from user where id = #{id}
    </select>
 

@@ -18,6 +18,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
      <setting name="lazyLoadingEnabled" value="true"/>
     <!-- 将积极加载改为消极加载即按需要加载 -->
      <setting name="aggressiveLazyLoading" value="false"/>
+     
+     <!-- 开启二级缓存总开关 -->
+     <setting name="cacheEnabled" value="true"/>
     </settings>
     <!-- 别名定义
     parameterType 、 resultType
@@ -64,6 +67,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	    遵循一些规范：需要将mapper接口类名和mapper.xml映射文件名称保持一致，且在同一个目录中
 	    上边规范前提是：使用的是mapper代理方法
 	    -->
+	    
+	    <!-- 和spring整合后，使用mapper扫描器，这里就可以不用配置了 -->
 	    <package name="com.test.dao"/>
 	</mappers>
 </configuration>

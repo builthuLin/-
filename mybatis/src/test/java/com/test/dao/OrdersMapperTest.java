@@ -126,5 +126,45 @@ public class OrdersMapperTest {
 		sqlSession.close();
 	}
 	
+	//二级缓存测试，需要自行设置二级缓存开关
+	@Test
+	public void testCache2() {
+		SqlSession sqlSession1 = sqlSessionFactory.openSession();
+		SqlSession sqlSession2 = sqlSessionFactory.openSession();
+		SqlSession sqlSession3 = sqlSessionFactory.openSession();
+		//第一次发起请求，查询用户信息,不存在缓存数据则缓存
+		UserMapper userMapper1 = sqlSession1.getMapper(UserMapper.class);
+		User user1 = userMapper1.findUserById(2);
+		System.out.println(user1);
+		
+		//执行关闭操作，将sqlSession中的数据写到二级缓存区域
+		sqlSession1.close();
+		
+		//使用sqlSession3执行commit()操作
+		UserMapper userMapper3 = sqlSession3.getMapper(UserMapper.class);
+		User user = userMapper3.findUserById(2);
+		user.setUsername("李四");
+		userMapper3.updateUser(user);
+		//执行提交，清空缓存,mapper.xml配置
+		/*<!-- useCache设置二级缓存是否禁用，默认为true不禁用，false为禁用 -->
+	    <!-- flushCache刷新缓存，true为刷新缓存，执行commit()操作需要 -->*/
+		sqlSession3.commit();
+		sqlSession3.close();
+		
+		//第二次发起请求，查询用户信息,缓存数据存在则读取缓存数据，不存在则读取数据库数据
+		UserMapper userMapper2 = sqlSession2.getMapper(UserMapper.class);
+		User user2 = userMapper2.findUserById(2);
+		System.out.println(user2);
+		
+		sqlSession2.close();
+	}
+	
+	//======================================mybatis整合ehcache实现分布缓存,实现cache接口==========================================
+	@Test
+	public void testEhCache() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+	}
+	
 
 }
