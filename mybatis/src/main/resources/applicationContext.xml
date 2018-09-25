@@ -40,14 +40,24 @@
 	     <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 	
-	<!--2、 mapper代理配置 
+	<!--2、 单个mapper代理配置 
 	MapperFactoryBean根据mapper接口生成代理对象
 	-->
-	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-	     <!-- mapperInterface指定mapper接口,value指定对应的接口 -->
-	     <property name="mapperInterface" value="com.test.dao.UserMapper"/>
+	<!-- <bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	     mapperInterface指定mapper接口,value指定对应的接口
+	     <property name="mapperInterface" value="com.test.dao.SSMUserMapper"/>
 	     <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
-	</bean>
+	</bean> -->
 	
-	<!-- mapper批量扫描,从mapper包中扫描出mapper接口, -->
+	<!-- 2-1、mapper批量扫描,从mapper包中扫描出mapper接口, 自动创建代理对象并且在spring容器中注册
+	遵循规范：mapper.xml和mapper.java名称一致，且在同一目录中	
+	自动扫描出来的mapper的bean的id为mapper类名（首字母小写）
+	-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<!-- 指定扫描的包名 
+	如果扫描多个包，每个包中间使用半角逗号分隔
+	-->
+	<property name="basePackage" value="com.test.dao"/>
+	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
 </beans>
