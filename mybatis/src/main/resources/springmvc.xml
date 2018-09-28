@@ -66,16 +66,16 @@
 	
 	
 	<!-- 注解处理器映射器 -->
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
 	<!-- 注解处理器适配器 -->
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/> -->
 	
 	<!-- 使用mvc:annotation-driven代替上边的注解处理器映射器和注解处理器适配器
 	同时也默认加载很多的参数绑定方法
 	比如json转换解析器就默认加载了，如果使用mvc:annotation-driven不用配置映射器和适配器
 	实际开发使用mvc:annotation-driven
 	 -->
-	<!-- <mvc:annotation-driven></mvc:annotation-driven> -->
+	<mvc:annotation-driven></mvc:annotation-driven>
 	
 	
 	<!-- 视图解析器
@@ -83,7 +83,7 @@
 	 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	    <!-- 配置jsp前缀 -->
-	    <property name="prefix" value="/WEB-INF/view/"/>
+	    <property name="prefix" value="/WEB-INF/"/>
 	    <!-- 配置jsp后缀 -->
 	    <property name="suffix" value=".jsp"/>
 	</bean>	

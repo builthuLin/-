@@ -48,7 +48,7 @@ public class ItemsController implements Controller {
 		modelAndView.addObject("itemsList", itemsList);
 
 		// 指定视图
-		modelAndView.setViewName("itemsList");
+		modelAndView.setViewName("view/itemsList");
 
 		return modelAndView;
 	}

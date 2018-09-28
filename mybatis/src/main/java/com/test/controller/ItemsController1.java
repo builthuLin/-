@@ -43,7 +43,7 @@ public class ItemsController1 implements HttpRequestHandler{
 		//设置模型数据
 		request.setAttribute("itemsList", itemsList);
 		//设置转发的视图
-		request.getRequestDispatcher("itemsList").forward(request, response);
+		request.getRequestDispatcher("view/itemsList").forward(request, response);
 		//使用此方法可以通过修改response,来设置响应的数据格式
 		/*response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json;charset=utf-8");

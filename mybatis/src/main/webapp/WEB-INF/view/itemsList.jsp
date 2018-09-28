@@ -9,33 +9,56 @@
 <title>查询商品列表</title>
 <style type="text/css">
 body{
-	background-image: url("https://oss.meibbc.com/BeautifyBreast/file/shequ/3B9F44C4E6D847A280544EC3D2F5B6F8.jpeg");
+	/* background-image: url("https://oss.meibbc.com/BeautifyBreast/file/shequ/3B9F44C4E6D847A280544EC3D2F5B6F8.jpeg");
 	background-position: center center; 
 	background-repeat: no-repeat; 
  	background-attachment: scroll; 
 	background-size: 100% auto;
 	width:100%;
-	height:1024px; 
+	height:1024px;  */
 }
-
+img{
+   width:100px;
+   height: 60px;
+}
 </style>
+<script>
+function insertItems() {
+	alert("新增");
+	window.open("insertItems.jsp"); 
+}
+</script>
 </head>
 <body>
 <form action="" method="post">
-查询条件：
+
 <table width="100%" border="1" align="center">
 <tr>
-    <td align="center">商品名称</td>
-    <td align="center">商品价格</td>
-    <td align="center">商品描述</td>
-    <td align="center">操作</td>
+	<td colspan="6" style="height: 60px;">
+	<input type="button" id="insert" name="insert" onclick=insertItems(); value="添加商品" style="float: right;width: 100px;height: 40px;margin: 10px;"/>
+	</td>
+</tr>
+<tr>
+    <td colspan="6" align="center" style="height: 60px;"><span style="font-size: 24px;">商品信息</span></td>
+</tr>
+<tr style="height: 40px;">
+    <td align="center"><h4>商品名称</h4></td>
+    <td align="center"><h4>商品价格</h4></td>
+    <td align="center"><h4>商品描述</h4></td>
+    <td align="center"><h4>商品图片</h4></td>
+    <td align="center"><h4>生产时间</h4></td>
+    <td align="center"><h4>操作</h4></td>
 </tr>
 <c:forEach items="${itemsList}" var="item">
 <tr>
     <td align="center">${item.name}</td>
     <td align="center">${item.price}</td>
     <td align="center">${item.detail}</td>
-    <td align="center"><a href="index.jsp">查看详情</a></td>
+    <td align="center"><a href="${item.pic}" title="点击查看"><img src="${item.pic}"/></a></td>
+    <td align="center">
+       <fmt:formatDate value="${item.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+    </td>
+    <td align="center"><a href="editItems.action?id=${item.id}">修改</a><span>/</span><a href="deleteItems.action?id=${item.id}">删除</a></td>
 </tr>
 </c:forEach>
 

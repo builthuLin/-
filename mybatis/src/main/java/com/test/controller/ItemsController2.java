@@ -52,7 +52,7 @@ public class ItemsController2 {
 		modelAndView.addObject("itemsList", itemsList);
 
 		// 指定视图
-		modelAndView.setViewName("itemsList");
+		modelAndView.setViewName("view/itemsList");
 
 		return modelAndView;
 		
