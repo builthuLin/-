@@ -38,21 +38,21 @@ input[type=text]{
    <%-- <td align="center"><input type="text" name="detail" value="${itemsCustom.detail}"/></td> --%>
    <td><textarea rows="10" cols="30" name="detail" style="margin: 0px;width: 90%">${itemsCustom.detail}</textarea></td>
 </tr>
-<%-- <tr>
+<tr>
    <td>商品图片</td>
-   <td><input type="text" name="pic" value="${item.pic}"/></td>
+ <%--   <td><input type="text" name="pic" value="${itemsCustom.pic}"/></td> --%>
    <td>
-     <c:if test="${item.pic != null}">
-        <img alt="" src="${item.pic}" width="100" height="100">
+     <c:if test="${itemsCustom.pic != null}">
+        <img alt="" src="${itemsCustom.pic}" width="100" height="100">
         <br/>
      </c:if>
      <input type="file" name="pictureFile">
    </td>
-</tr> --%>
-<%-- <tr>
+</tr>
+<tr>
    <td>生产时间</td>
-   <td><input type="text" name="createtime" value="<fmt:formatDate value='${item.createtime}' pattern='yyyy-MM-dd HH:mm:sss'/>"/></td>
-</tr> --%>
+   <td><input type="text" name="createtime" value="<fmt:formatDate value='${itemsCustom.createtime}' pattern='yyyy-MM-dd HH:mm:sss'/>"/></td>
+</tr>
 <tr>
 <td colspan="2" align="center"><input type="submit" value="修改" style="width: 80px;height: 30px;"/></td>
 </tr>

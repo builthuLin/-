@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>修改商品信息</title>
+<title>添加商品信息</title>
 <style type="text/css">
 td{
    height: 40px;
@@ -36,23 +36,22 @@ input[type=text]{
    <td align="center">商品描述</td>
    <td align="center"><input type="text" name="detail" value=""/></td>
 </tr>
-<%-- <tr>
-   <td>商品图片</td>
-   <td><input type="text" name="pic" value="${item.pic}"/></td>
-   <td>
-     <c:if test="${item.pic != null}">
-        <img alt="" src="${item.pic}" width="100" height="100">
-        <br/>
-     </c:if>
-     <input type="file" name="pictureFile">
-   </td>
-</tr> --%>
-<%-- <tr>
-   <td>生产时间</td>
-   <td><input type="text" name="createtime" value="<fmt:formatDate value='${item.createtime}' pattern='yyyy-MM-dd HH:mm:sss'/>"/></td>
-</tr> --%>
 <tr>
-<td colspan="2" align="center"><input type="submit" value="提交" style="width: 80px;height: 30px;"/></td>
+   <td align="center">商品图片</td>
+   <td align="center">
+	   <input type="text" style="display: none;" name="pic" value=""/>
+	   <input type="file" name="pictureFile">
+   </td>
+</tr>
+<tr>
+   <td align="center">生产时间</td>
+   <td align="center"><input type="text" name="createtime" value=""/></td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+   <input type="submit" value="提交" style="width: 80px;height: 30px;"/>
+   <input type="submit" value="返回" style="width: 80px;height: 30px;"/>
+</td>
 </tr>
 </table>
 </form>

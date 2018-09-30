@@ -35,7 +35,7 @@ function insertItems() {
 <table width="100%" border="1" align="center">
 <tr>
 	<td colspan="6" style="height: 60px;">
-	<input type="button" id="insert" name="insert" onclick=insertItems(); value="添加商品" style="float: right;width: 100px;height: 40px;margin: 10px;"/>
+	<input type="button" id="insert" name="insert" onclick="insertItems();" value="添加商品" style="float: right;width: 100px;height: 40px;margin: 10px;"/>
 	</td>
 </tr>
 <tr>
